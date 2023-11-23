@@ -26,33 +26,33 @@ export async function getCart(id) {
 
     }
     )
+    getTotal(id)
+
+    return data.json()
+
+  } catch (error) {
+    console.log(error)
+    console.log("Could Not Get Cart!")
+  }
+}
+
+export async function addToCart(id, item) {
+
+  try {
+    const data = await fetch(`http://localhost:3000/api/cartCookies/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      }, cache: "no-store",
+      body: JSON.stringify({ item })
+
+    }
+    )
     return data.json()
 
   } catch (error) {
     console.log(error)
   }
-}
-
-export async function addToCart(id, item, price) {
-//  const { items } = await getCart(id)
-  //const isInCart = items.filter(product=>product.id === item.id)
-
-
-    try {
-      const data = await fetch(`http://localhost:3000/api/cartCookies/${id}`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        }, cache: "no-store",
-        body: JSON.stringify({ item, price })
-
-      }
-      )
-      return data.json()
-
-    } catch (error) {
-      console.log(error)
-    }
 
 
 }
@@ -70,25 +70,36 @@ export async function removeFromCart(id, item) {
   }
 }
 
-export async function changeQuantity(id, item, quantity,increment) {
-  if(quantity > 0){
+export async function changeQuantity(id, item, increment) {
+  if (item.quantity > 1) {
+    try {
+      await fetch(`http://localhost:3000/api/cartCookies/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        }, cache: "no-store",
+        body: JSON.stringify({ item, increment })
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  } else if (item.quantity <=1 && !increment) {
+    console.log("Removing")
+    removeFromCart(id,item)
+  }
+}
+
+export async function getTotal(id) {
   try {
     await fetch(`http://localhost:3000/api/cartCookies/${id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-type": "application/json",
-      }, cache: "no-store",
-      body: JSON.stringify({ item, quantity,increment})
+      }, cache: "no-store"
     })
   } catch (error) {
     console.log(error)
-  }}
+  }
 }
 
-export async function getTotal(items){
-  const itemTotal = items.map(item =>parseFloat(item.price) * item.quantity) 
-  const total = itemTotal.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue
-  }, 0)
-  return total
-}
+

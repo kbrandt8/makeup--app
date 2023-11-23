@@ -1,5 +1,5 @@
 'use client'
-import { addToCart, changeQuantity, removeFromCart } from "@/utils/cartActions";
+import { changeQuantity, removeFromCart } from "@/utils/cartActions";
 import { useState, useEffect } from "react";
 import { useCartContext } from "@/context/context";
 import { Button } from "react-bootstrap";
@@ -13,28 +13,31 @@ export default function CartItem({ data }: {
     data: CartItemType
 }) {
     const router = useRouter()
-    const { cartId } = useCartContext()
+    const {
+        cartId,
+        deleteItem,
+        newQuantity,
+} = useCartContext()
     const initialPrice = parseFloat(data.price) * data.quantity
     const fullPrice = initialPrice.toFixed(2)
-
-
     return (
-        <div >
+        <div className="cartItem">
             <h4>{data.brand}:{data.name}</h4>
             <Image src={'https:' + data.img_url} alt={data.name} width={100} height={100} />
 
             <h5><Link href={`${data.brand}/${data.product_type}`}>{data.product_type}</Link></h5>
             <h6>{data.product_color}</h6>
             <h5>${fullPrice}</h5>
+
             {data?.quantity &&
                 <ButtonToolbar aria-label="Toolbar with button groups">
                     <ButtonGroup className="me-2" aria-label="Second group">
-                        <Button onClick={() => {changeQuantity(cartId, data, data.quantity,false);router.refresh()}}> - </Button>
+                        <Button onClick={() => {cartId &&changeQuantity(cartId, data,false);newQuantity(data,false);router.refresh()}}> - </Button>
                         <Button>{data.quantity}</Button>
-                        <Button onClick={() => {changeQuantity(cartId, data, data.quantity,true);router.refresh()}}>+</Button>
+                        <Button onClick={() => {cartId &&changeQuantity(cartId, data,true);newQuantity(data,true);router.refresh()}}>+</Button>
                     </ButtonGroup></ButtonToolbar>
             }
-            <Button onClick={() => { removeFromCart(cartId, data); router.refresh() }}>Remove From Cart</Button>
+            <Button onClick={() => {cartId &&removeFromCart(cartId,data); deleteItem(data); router.refresh() }}>Remove From Cart</Button>
 
         </div>
     )

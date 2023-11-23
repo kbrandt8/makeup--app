@@ -1,5 +1,3 @@
-
-
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from "next/server";
 import connectMongoDB from "@/libs/mongodb";
@@ -16,7 +14,6 @@ export async function GET(request, { params }) {
     } catch (error) {
         return NextResponse.json({ 'message': "could not get cart" })
     }
-
 }
 export async function POST(request, { params }) {
     const { id } = params
@@ -52,7 +49,6 @@ export async function DELETE(request, { params }) {
     try {
         await Cart.updateOne({ _id: id },
             {
-
                 $pull: { items: item }
             })
          
@@ -73,7 +69,6 @@ export async function PUT(request, { params }) {
     let quantity = oldItem.quantity
     if (increment) {
         quantity += 1
-
         try {
             await Cart.findOneAndUpdate({ _id: id, 'items': { $elemMatch: { id: itemId } } },
                 {
@@ -113,5 +108,25 @@ export async function PUT(request, { params }) {
     }
 
 
+}
+export async function PATCH(request, { params }){
+    const { id } = params;
+    await connectMongoDB();
+    const { items } = await Cart.findOne({ _id: id, })
+    const itemTotal = items.map(item =>parseFloat(item.price) * item.quantity) 
+    const total = itemTotal.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue
+    }, 0)
+    try {
+        await Cart.findOneAndUpdate({_id:id},{
+            total:total
+        })
+        return NextResponse.json({ 'message': `Cart total is now: ${total} ` })
+
+        
+    } catch (error) {
+        console.log(error)
+        NextResponse.json({ 'message': 'could not edit total' })
+    }
 }
 

@@ -3,17 +3,23 @@ import { addToCart } from "@/utils/cartActions";
 import { useCartContext } from "@/context/context";
 import { Button } from "react-bootstrap";
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from 'next/navigation'
 import { ProductType } from "@/utils/dataTypes";
+
 export default function Product({ data }: {
     data: ProductType
 }) {
+    const {
+        loggedIn,
+        cartId,
+        addItem,
+
+    } = useCartContext()
     const router = useRouter()
-    const { cartId } = useCartContext()
-    const [color, setColor] = useState('')
-    const [hexCode,setHexCode] = useState('')
+    const [selectedColor, setSelectedColor] = useState('')
+    const [hexCode, setHexCode] = useState('')
+    const [alert, setAlert] = useState(false)
     const product = {
         id: data.id,
         brand: data.brand,
@@ -21,29 +27,38 @@ export default function Product({ data }: {
         price: data.price,
         img_url: data.api_featured_image,
         product_type: data.product_type,
-        product_color: color,
+        product_color: selectedColor,
         quantity: 1
     }
     const price = parseFloat(data.price).toFixed(2)
+    const colorSelect = data.product_colors.length > 0 ? true : false
+    const isColorSelected = !selectedColor && colorSelect ? true:false
 
     return (
-        <div>
-            <h4>{data.brand}:{data.name}</h4>
+        <div className="product">
             <Image src={'https:' + data.api_featured_image} alt={data.name} width={100} height={100} />
-            <h5
-            style={{color:`${hexCode}`}}
-            >{color}</h5>
-            <h5><Link href={`${data.brand}/${data.product_type}`}>{data.product_type}</Link></h5>
-            {data.product_colors?.map(color =>
-                <div 
-                key={color.hex_value}
-                style={{color:`${color.hex_value}`}}
-                    onClick={() => {setColor(color.colour_name);setHexCode(color.hex_value)}}>
-                    {color.colour_name}:{color.hex_value}
-                </div>)}
-            <h5>${price}</h5>
-            <Button onClick={() => { addToCart(cartId, product, price); router.refresh() }}>Add To Cart</Button>
+            <h4>{data.name}</h4>
+            {alert && <h5>Set Color Before Adding To Cart!</h5>}
+            <div className="product-info">
+            <ul className="product-colors">
 
+                {data.product_colors?.map(color => {
+                    const colorClass = selectedColor === color.colour_name ? "selected-li" : ""
+
+                    return (<li
+                        className={colorClass}
+                        key={color.hex_value}
+                        style={{ backgroundColor: `${color.hex_value}` }}
+                        onClick={() => { setSelectedColor(color.colour_name); setHexCode(color.hex_value); setAlert(false) }}>
+                    </li>)
+                })}
+            </ul>
+            <h5>${price}</h5>
+            {isColorSelected ?
+            <Button onClick={() => { setAlert(true) }}>Add To Cart</Button> 
+:
+                <Button onClick={() => { cartId && addToCart(cartId, product); addItem(product); router.refresh() }}>Add To Cart</Button> 
+        }</div>
         </div>
     )
 }

@@ -28,14 +28,14 @@ const makeup = allMakeup.map((item:ProductType)=>
 <div key={item.id}><Product data={item}/></div>
 )
 
-    return (<div>
+    return (<main>
       <ul>
 
         </ul>
 <h1>{product}</h1>
       <ul>{makeup}</ul>
     
-    </div>)
+    </main>)
   }
 
 

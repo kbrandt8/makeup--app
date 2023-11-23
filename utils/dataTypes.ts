@@ -14,7 +14,6 @@ export type ProductType ={
 
 export type CartItemType = {
     id: number,
-    _id:string,
     name: string,
     description: string,
     brand: string,

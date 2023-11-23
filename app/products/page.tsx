@@ -6,8 +6,8 @@ export default function Page(){
 
     const links = products.map(item=><li key={products.indexOf(item)}><Link href={`/products/${item}`}>{item}</Link></li>)
     return(
-        <div>
+        <main>
 {links}
-        </div>
+        </main>
     )
 }

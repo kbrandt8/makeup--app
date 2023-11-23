@@ -25,11 +25,11 @@ const makeup = data.map((item:ProductType)=><li key={item.id}>
 </li>)
 
 
-    return (<div>
+    return (<main>
 <h1>{brand}</h1>
       <ul>{makeup}</ul>
     
-    </div>)
+    </main>)
   }
 
 
