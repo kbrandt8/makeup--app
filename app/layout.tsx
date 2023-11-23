@@ -7,7 +7,6 @@ import {CartProvider} from '@/context/context'
 import CookieConsentBanner from '@/components/cookieBanner';
 const inter = Inter({ subsets: ['latin'] })
 import CookieFunctions from '@/components/cookieFunctions';
-import Cart from '@/components/cart';
 import NavBar from '@/components/navbar';
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -24,7 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <CartProvider>
         <NavBar/>
-          <Cart/>
+
           {children}
           <CookieConsentBanner/>
         </CartProvider>
