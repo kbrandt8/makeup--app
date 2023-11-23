@@ -1,6 +1,15 @@
+@font-face {
+  font-family: Unna ;
+  src: url(./Unna-Regular.ttf);
+}
+@font-face {
+  font-family: Poppins;
+  src: url(./Poppins-Light.ttf);
+}
 body {
   background-color: #F3ECEF !important;
   font-size: 15px !important;
+  font-family:Poppins !important;
 }
 
 h1,
@@ -10,6 +19,7 @@ h4,
 h5,
 h6 {
   color: #904660 !important;
+  font-family: Unna!important;
 }
 
 a {
@@ -26,22 +36,27 @@ a:hover {
 .btn-primary{
   background-color: #904660!important;
   border-color:#904660!important;
+  font-family: Unna!important;
+  letter-spacing:2px;
 }
 .btn-secondary{
   background-color: #F3ECEF!important;
   border-color:#F3ECEF!important;
   color: #904660 !important;
+  font-family: Unna!important;
+  letter-spacing:2px;
+
+
 }
 .nav {
   background-color: #904660 !important;
 }
 
-.nav>a {
- 
-}
 
 .navbar-brand {
   color: #F3ECEF !important;
+  font-family: Unna!important;
+
 }
 
 li {
@@ -98,12 +113,12 @@ main{
   border: #0000009a 5px solid;
 }
 
-@media only screen and(max-width:750px) {
+@media (max-width:750px) {
   main{
       width:75%;
   }
 }
-@media only screen and(max-width:500px) {
+@media (max-width:500px) {
   main{
       width:100%;
   }

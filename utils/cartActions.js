@@ -1,7 +1,7 @@
+const URL = process.env.NEXT_PUBLIC_URL
 export async function startCart() {
-  //  const URL = process.env.NEXT_PUBLIC_URL
   try {
-    await fetch(`http://localhost:3000/api/cartCookies`, {
+    await fetch(`${URL}/api/cartCookies`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -17,7 +17,7 @@ export async function startCart() {
 
 export async function getCart(id) {
   try {
-    const data = await fetch(`http://localhost:3000/api/cartCookies/${id}`, {
+    const data = await fetch(`${URL}/api/cartCookies/${id}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -39,7 +39,7 @@ export async function getCart(id) {
 export async function addToCart(id, item) {
 
   try {
-    const data = await fetch(`http://localhost:3000/api/cartCookies/${id}`, {
+    const data = await fetch(`${URL}/api/cartCookies/${id}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -58,7 +58,7 @@ export async function addToCart(id, item) {
 }
 export async function removeFromCart(id, item) {
   try {
-    await fetch(`http://localhost:3000/api/cartCookies/${id}`, {
+    await fetch(`${URL}/api/cartCookies/${id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -73,7 +73,7 @@ export async function removeFromCart(id, item) {
 export async function changeQuantity(id, item, increment) {
   if (item.quantity > 1) {
     try {
-      await fetch(`http://localhost:3000/api/cartCookies/${id}`, {
+      await fetch(`${URL}/api/cartCookies/${id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
@@ -91,7 +91,7 @@ export async function changeQuantity(id, item, increment) {
 
 export async function getTotal(id) {
   try {
-    await fetch(`http://localhost:3000/api/cartCookies/${id}`, {
+    await fetch(`${URL}/api/cartCookies/${id}`, {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
