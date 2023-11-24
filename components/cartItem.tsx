@@ -21,24 +21,25 @@ export default function CartItem({ data }: {
     const initialPrice = parseFloat(data.price) * data.quantity
     const fullPrice = initialPrice.toFixed(2)
     return (
-        <div className="cartItem">
-            <h4>{data.brand}:{data.name}</h4>
+        <div className="product">
+            <h5>{data.brand} </h5>
+            <h4>{data.name}</h4>
             <Image src={'https:' + data.img_url} alt={data.name} width={100} height={100} />
 
             <h5><Link href={`${data.brand}/${data.product_type}`}>{data.product_type}</Link></h5>
             <h6>{data.product_color}</h6>
             <h5>${fullPrice}</h5>
-
+            <div className="product-info">
             {data?.quantity &&
-                <ButtonToolbar aria-label="Toolbar with button groups">
-                    <ButtonGroup className="me-2" aria-label="Second group">
+              
+                    <ButtonGroup aria-label="Change Quantity">
                         <Button onClick={() => {cartId &&changeQuantity(cartId, data,false);newQuantity(data,false);router.refresh()}}> - </Button>
                         <Button>{data.quantity}</Button>
                         <Button onClick={() => {cartId &&changeQuantity(cartId, data,true);newQuantity(data,true);router.refresh()}}>+</Button>
-                    </ButtonGroup></ButtonToolbar>
+                    </ButtonGroup>
             }
-            <Button onClick={() => {cartId &&removeFromCart(cartId,data); deleteItem(data); router.refresh() }}>Remove From Cart</Button>
-
+            <br/><Button onClick={() => {cartId &&removeFromCart(cartId,data); deleteItem(data); router.refresh() }}>Remove From Cart</Button>
+</div>
         </div>
     )
 }

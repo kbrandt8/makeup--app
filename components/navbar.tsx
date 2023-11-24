@@ -4,11 +4,19 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { products,brands } from '@/utils/lists'; 
+import { useCartContext } from "@/context/context";
+import {FaCartShopping} from "react-icons/fa6"
 export default function NavBar(){
+  const {
+    total,
+    items
+} = useCartContext()
     return (<div >
         <Navbar sticky="top" expand="lg" className="nav">
+
         <Container>
           <Navbar.Brand href="/">K. K. Beauty</Navbar.Brand>
+          <Navbar.Brand href="/cart" ><FaCartShopping/> ${total.toFixed(2)}</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
