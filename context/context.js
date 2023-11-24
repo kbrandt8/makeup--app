@@ -12,7 +12,7 @@ export function CartProvider({ children }) {
     const fetcher = (url) => fetch(url).then((res) => res.json());
     const getCart = `http://localhost:3000/api/cartCookies/${cartId}`
     const { data, error, isLoading } = useSWR(getCart, fetcher)
-
+    const cartNumber = getTotalItems(items)
     useEffect(() => {
         if (data) {
             if (data.items) {
@@ -32,6 +32,13 @@ export function CartProvider({ children }) {
         const total = itemTotal.reduce((accumulator, currentValue) => {
             return accumulator + currentValue
         }, 0)
+        return total
+    }
+    function getTotalItems(items){
+        const allItems = items.map(item=> item.quantity)
+        const total = allItems.reduce((a,c)=>{
+            return a+c
+        },0)
         return total
     }
 
@@ -75,7 +82,8 @@ export function CartProvider({ children }) {
             addItem,
             deleteItem,
             newQuantity,
-            getTotal
+            getTotal,
+            cartNumber
 
 
         }}>
