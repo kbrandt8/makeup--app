@@ -18,7 +18,6 @@ export function CartProvider({ children }) {
             if (data.items) {
                 setItems(data.items)
                 setTotal(getTotal(data.items))
-                console.log(data.items)
             }
         }
     }, [data])

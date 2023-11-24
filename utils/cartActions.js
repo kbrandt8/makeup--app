@@ -37,7 +37,9 @@ export async function getCart(id) {
 }
 
 export async function addToCart(id, item) {
-
+  const {items} = await getCart(id)
+  const isInCart = items.filter(product=>product.id===item.id && product.product_color === item.product_color).length >0?true:false
+  if(!isInCart){
   try {
     const data = await fetch(`${URL}/api/cartCookies/${id}`, {
       method: "POST",
@@ -53,7 +55,9 @@ export async function addToCart(id, item) {
   } catch (error) {
     console.log(error)
   }
-
+} else{
+  changeQuantity(id,item,true)
+}
 
 }
 export async function removeFromCart(id, item) {
@@ -71,7 +75,7 @@ export async function removeFromCart(id, item) {
 }
 
 export async function changeQuantity(id, item, increment) {
-  if (item.quantity > 1) {
+  if (item.quantity >= 1 && increment) {
     try {
       await fetch(`${URL}/api/cartCookies/${id}`, {
         method: "PUT",
