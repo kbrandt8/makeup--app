@@ -136,11 +136,10 @@ main {
 }
 
 .home>ul>li {
-  padding: 2rem;
+  padding: 3rem;
 }
 
 .home>ul>li>h1 {
-  color: #f3ecef !important;
   margin-bottom: 1rem;
 }
 
@@ -155,12 +154,16 @@ main {
 }
 
 .home>ul>li:nth-child(odd) {
-  background-color: #562A39;
+  background-color: #F3ECEF;
+  color:#562A39;
 
 }
 
 .home>ul>li:nth-child(even) {
   background-color: #904660;
+}
+.home>ul>li:nth-child(even)>h1 {
+  color: #f3ecef !important;
 }
 
 @media (max-width:750px) {
