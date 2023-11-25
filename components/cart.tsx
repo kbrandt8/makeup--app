@@ -29,8 +29,9 @@ export default function Cart() {
     })
     return (
         <div>
-            <h1>{total.toFixed(2)}</h1>
+
             {allItems}
+            <h1>Total: {total.toFixed(2)}</h1>
         </div>
     )
 }

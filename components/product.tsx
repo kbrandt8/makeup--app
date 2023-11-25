@@ -38,6 +38,7 @@ export default function Product({ data }: {
         <div className="product">
             <Image src={'https:' + data.api_featured_image} alt={data.name} width={100} height={100} />
             <h4>{data.name}</h4>
+            <h5>{selectedColor}</h5>
             {alert && <h5>Set Color Before Adding To Cart!</h5>}
             <div className="product-info">
             <ul className="product-colors">

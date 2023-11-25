@@ -68,7 +68,9 @@ a.navbar-brand:hover {
   letter-spacing: normal;
   color: #562A39 !important;
 }
-
+.offCanvas{
+  background-color:#F3ECEF!important;
+}
 li {
   list-style-type: none;
 }

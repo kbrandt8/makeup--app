@@ -54,7 +54,7 @@ export default function NavBar() {
 
     </Offcanvas>
 
-    <Offcanvas show={showProducts} onHide={handleCloseProducts}>
+    <Offcanvas show={showProducts} onHide={handleCloseProducts} className="offCanvas">
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Product Types</Offcanvas.Title>
       </Offcanvas.Header>
