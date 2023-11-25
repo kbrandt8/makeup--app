@@ -6,14 +6,24 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { products,brands } from '@/utils/lists'; 
 import { useCartContext } from "@/context/context";
 import {FaCartShopping} from "react-icons/fa6"
+import { useState } from 'react';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import Link from 'next/link';
 export default function NavBar(){
   const {
     total,
     items
 } = useCartContext()
+const [showBrands, setShowBrands] = useState(false);
+const [showProducts, setShowProducts] = useState(false);
+
+const handleCloseBrands = () => setShowBrands(false);
+const handleShowBrands = () => setShowBrands(true);
+const handleCloseProducts = () => setShowBrands(false);
+const handleShowProducts = () => setShowBrands(true);
+
     return (<div >
         <Navbar sticky="top" expand="lg" className="nav">
-
         <Container>
           <Navbar.Brand href="/">K. K. Beauty</Navbar.Brand>
           <Navbar.Brand href="/cart" ><FaCartShopping/> ${total.toFixed(2)}</Navbar.Brand>
@@ -21,24 +31,40 @@ export default function NavBar(){
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/brands">Brands</Nav.Link>
-              <Nav.Link href="/products">Products</Nav.Link>
-
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link onClick={handleShowBrands}>Brands</Nav.Link>
+              <Nav.Link onClick={handleShowProducts}>Products</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      <Offcanvas show={showBrands} onHide={handleCloseBrands}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>All Brands</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+         
+{brands.map((item:string)=>
+<h3 key={brands.indexOf(item)}>
+<Link onClick={handleCloseBrands} href={`/brands/${item}`}>{item}</Link>
+</h3>
+  )}
+        </Offcanvas.Body>
+      </Offcanvas>
+
+      <Offcanvas show={showBrands} onHide={handleCloseProducts}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Product Types</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+         
+{products.map((item:string)=>
+<h3 key={products.indexOf(item)}>
+<Link onClick={handleCloseProducts} href={`/products/${item}`}>{item}</Link>
+</h3>
+  )}
+        </Offcanvas.Body>
+      </Offcanvas>
       </div>
     )
 }
