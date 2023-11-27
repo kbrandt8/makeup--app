@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/brands/[brand]/[product]/page.tsx", "app/api/cartCookies/route.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/brands/[brand]/products/[product]/page.tsx", "app/api/cartCookies/route.js"],
   "exclude": ["node_modules"]
 }

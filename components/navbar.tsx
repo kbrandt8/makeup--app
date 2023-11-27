@@ -62,7 +62,7 @@ export default function NavBar() {
 
         {products.map((item: string) =>
           <h3 key={products.indexOf(item)}>
-            <Link onClick={handleCloseProducts} href={`/products/${item}`}>{item}</Link>
+            <Link onClick={handleCloseProducts} href={`/products/${item}`}>{item.replace("_"," ")}</Link>
           </h3>
         )}
       </Offcanvas.Body>

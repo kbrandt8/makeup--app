@@ -40,17 +40,26 @@ a:hover {
 .btn-primary {
   background-color: #904660 !important;
   border-color: #904660 !important;
+  color: #F3ECEF !important;
   font-family: Unna !important;
   letter-spacing: 2px;
 }
 
+.btn-primary:hover {
+  color: #F3ECEF !important;
+  background-color: #562A39 !important;
+}
+
 .btn-secondary {
-  background-color: #F3ECEF !important;
-  border-color: #F3ECEF !important;
-  color: #904660 !important;
+  background-color: #562A39 !important;
+  color: #F3ECEF !important;
   font-family: Unna !important;
   letter-spacing: 2px;
+}
 
+.btn-secondary:hover {
+  color: #904660 !important;
+  background-color: #F3ECEF !important;
 
 }
 
@@ -68,16 +77,19 @@ a.navbar-brand:hover {
   letter-spacing: normal;
   color: #562A39 !important;
 }
-.offCanvas{
-  background-color:#F3ECEF!important;
+
+.offCanvas {
+  background-color: #F3ECEF !important;
 }
+
+
 li {
   list-style-type: none;
 }
 
 main {
   width: 50%;
-  margin: 0 auto;
+  margin: 1rem auto;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -126,11 +138,36 @@ main {
   margin: 0 auto;
 }
 
+.product-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-description>Button {
+  width: 50%;
+  margin: 0 auto;
+}
+.product-description>a{
+  color: #562A39!important;
+}
+.product-features {
+  margin:1rem auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align:center;
+  justify-content: space-evenly;
+  justify-items: center;
+}
+
+.product-features>h5 {
+  width: 100%;
+}
+
 .selected-li {
   border: #0000009a 5px solid;
 }
 
-.home {}
 
 .home>ul {
   padding-inline-start: 0px;
@@ -157,13 +194,14 @@ main {
 
 .home>ul>li:nth-child(odd) {
   background-color: #F3ECEF;
-  color:#562A39;
+  color: #562A39;
 
 }
 
 .home>ul>li:nth-child(even) {
   background-color: #904660;
 }
+
 .home>ul>li:nth-child(even)>h1 {
   color: #f3ecef !important;
 }

@@ -9,7 +9,8 @@ export type ProductType ={
     product_colors:[{
         hex_value:string,
         colour_name:string
-    }]
+    }],
+    tag_list:[string]
 }
 
 export type CartItemType = {
