@@ -63,7 +63,18 @@ export default function Product({ data }: {
             {data.tag_list.length > 0 &&
                 <div className="product-features">
                     <h5>Product tags:</h5>
-                    {data.tag_list.map((tag: string) => <Link href={`${pathname}${path}/${tag}`} key={data.tag_list.indexOf(tag)}>{tag}</Link>)}
+                    {data.tag_list.map((tag: string) => {
+                            const newTag = tag.replace(" ","%20")
+                            const tagRegex = new RegExp(`${newTag}`)
+                            const isInpath = tagRegex.test(pathname) 
+                    
+                    if(!isInpath){
+                   return <Link href={`${pathname}${path}/${tag}`} key={data.tag_list.indexOf(tag)}>{tag}</Link>
+                } else{
+                    return <p key={data.tag_list.indexOf(tag)}>{tag}</p>
+                }
+
+                    })}
 
                 </div>}
                 <ul className="product-colors">
