@@ -75,7 +75,7 @@ export default function NavBar() {
 
     <Offcanvas show={showTags} onHide={handleCloseTags} className="offCanvas">
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title>Product Types</Offcanvas.Title>
+        <Offcanvas.Title>Product Tags</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
 
