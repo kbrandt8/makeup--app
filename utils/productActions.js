@@ -17,7 +17,8 @@ export async function getData(product,brand,tags) {
     const getMakeup = await fetch(url, options).then(response => response.json())
     const allMakeup = await getMakeup.filter((item) =>
     item.price !== '0.0' &&
-    item.api_featured_image !== "/images/original/missing.png"
+    item.api_featured_image !== "/images/original/missing.png" &&
+    item.api_featured_image !== undefined
   )
   const makeup = allMakeup.map((item) =>
     <div key={item.id}><Product data={item} /></div>

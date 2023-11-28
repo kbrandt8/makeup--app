@@ -33,7 +33,7 @@ export default function Product({ data }: {
         quantity: 1
     }
     const price = parseFloat(data.price).toFixed(2)
-    const colorSelect = data.product_colors.length > 0 ? true : false
+    const colorSelect = data.product_colors?.length > 0 ? true : false
     const isColorSelected = !selectedColor && colorSelect ? true : false
     const regex = new RegExp("tags")
     const path = regex.test(pathname) ? "" : "/tags"
@@ -60,7 +60,7 @@ export default function Product({ data }: {
                 </Button>
             </div>}
             <div className="product-info">
-            {data.tag_list.length > 0 &&
+            {data.tag_list?.length > 0 &&
                 <div className="product-features">
                     <h5>Product tags:</h5>
                     {data.tag_list.map((tag: string) => {
@@ -73,7 +73,6 @@ export default function Product({ data }: {
                 } else{
                     return <p key={data.tag_list.indexOf(tag)}>{tag}</p>
                 }
-
                     })}
 
                 </div>}
