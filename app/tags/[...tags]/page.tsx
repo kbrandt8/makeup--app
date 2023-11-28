@@ -8,15 +8,15 @@ brand:string,
 tags:[string]
 }}){
 const {product,brand,tags} = params
-console.log("tags page:",product,brand,tags)
 const data = await getData(product,brand,tags)
+const tagsName  = tags.map(tag=>tag.replace("%20"," ") + " ")
 
 return(
     <main>
       <ProductNav />
         <h1>{brand}</h1>
         <h1>{product}</h1>
-        <h1>{tags}</h1>
+        <h1>{tagsName}</h1>
         <ul>{data.length > 0 ? data : <h1>None Found</h1>} </ul>
     </main>
 )

@@ -19,17 +19,17 @@ export default function ProductNav() {
     const [showTags, setShowTags] = useState(false)
     const pathname = usePathname();
     const { brand, product, tags } = params
+    const brandName = brand &&  brand.toString().replace("%20"," ")
+    const productName =product && product.toString().replace("_"," ")
     const tagsLink = Array.isArray(tags) ? `/${tags.join("/")}` : ``
     const brandLink = brand ? `/brands/${brand}` : ``
     const productLink = product ? `/products/${product}` : ``
-    const fullLink = brandLink + productLink + tagsLink
+    const newProductLink = `${brandLink}${tagsLink}` === `` ? `/` : `${brandLink}${tagsLink}`
+    const newBrandLink = `${productLink}${tagsLink}` === `` ? `/` : `${productLink}${tagsLink}`
+    const newTagLink = `${brandLink}${productLink}` === `` ? `/` : `${brandLink}${productLink}`
+
 
     return (<>
-        {pathname}<br />
-        {fullLink} <br />
-        {tagsLink}
-
-
         <Navbar className="nav">
             <Container>
                 <Nav className="me-auto">
@@ -102,13 +102,12 @@ export default function ProductNav() {
             </div>
         </Collapse>
         {productLink !== "" &&
-            <Button href={`${brandLink}${tagsLink}`}>{params.product}</Button>}
+            <Button href={`${newProductLink}`}>{productName}</Button>}
         {brandLink !== "" &&
-            <Button href={`${productLink}${tagsLink}`}>{params.brand}</Button>}
-
+            <Button href={`${newBrandLink}`}>{brandName}</Button>}
     {tagsLink !== "" &&
             <Button
-                href={`${brandLink}${productLink}`}
+                href={`${newTagLink}`}
             >
                 Clear Tags
             </Button>}
