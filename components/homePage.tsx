@@ -1,14 +1,10 @@
 'use client'
 import { useCartContext } from "@/context/context"
+import { ProductType } from "@/utils/dataTypes"
 import Link from "next/link"
 export default function Home() {
     const { cartId, cartNumber } = useCartContext()
     return (<div className="home">
-        {/* {cartNumber > 0 &&
-        <h1><Link href={'/cart'}>
-        View {cartNumber} {cartNumber >1 ?"items" : "item"} in Cart
-        </Link></h1>
-        } */}
 
         <ul>
             <li><h1>One</h1>

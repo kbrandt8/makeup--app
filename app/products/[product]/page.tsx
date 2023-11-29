@@ -1,14 +1,11 @@
-import Product from "@/components/product";
-import { ProductType } from "@/utils/dataTypes";
 import { getData } from '@/utils/productActions'
 import ProductNav from "@/components/productNav";
 export default async function Page({ params }: { params: { product: string } }) {
   const { product } = params
-
   const data = await getData(product, false, false)
 
   return (<main>
-    <ProductNav product={true} brand={false} tags={false} />
+    <ProductNav/>
     <ul>
 
     </ul>

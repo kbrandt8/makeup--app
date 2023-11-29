@@ -11,7 +11,6 @@ const options = {
   }
 };
 export function sortMakeup(makeup) {
-  console.log(makeup)
   return makeup.filter((item) =>
     item.price !== '0.0' &&
     item.api_featured_image !== "/images/original/missing.png" &&
@@ -25,7 +24,9 @@ export async function getData(product, brand, tags) {
   const brandName = brand ? `brand=${brand}&` : ""
   const tagList = tags ? `product_tags=${newTags}` : ""
   const url = `${baseUrl}${productType}${brandName}${tagList}`;
+  console.log("Get Data URL: ", url)
   const getMakeup = await fetch(url, options).then(response => response.json())
+  console.log("Get Data fetched data:", getMakeup.message)
   const allMakeup = await sortMakeup(getMakeup)
   const makeup = allMakeup.map((item) =>
     <div key={item.id}><Product data={item} /></div>
@@ -36,19 +37,12 @@ export async function getData(product, brand, tags) {
 
 export async function getRandomProduct() {
   let num = Math.floor(Math.random() * products.length)
-  const url = `${baseUrl}product_type=${products[num]}&rating_greater_than=4`
-  const getMakeup = await fetch(url, options).then(response => response.json())
-  const allMakeup = await sortMakeup(getMakeup)
-  const sorted = await allMakeup.sort((a, b) => b.rating - a.rating)
-  return sorted
+  const product = products[num].toString()
+  return product
 }
 
 export async function getRandomBrand(){
   let num = Math.floor(Math.random() * brands.length)
-  const url = `${baseUrl}brand=${brands[num]}`
-  const getMakeup = await fetch(url, options).then(response => response.json())
-  const allMakeup = await sortMakeup(getMakeup)
-  const sorted = await allMakeup.sort((a, b) => b.rating - a.rating)
-  return sorted
+  const brand = brands[num].toString()
+  return brand
 }
-
