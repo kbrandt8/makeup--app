@@ -2,11 +2,9 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import CookieConsent from "react-cookie-consent";
 import {CartProvider} from '@/context/context'
 import CookieConsentBanner from '@/components/cookieBanner';
 const inter = Inter({ subsets: ['latin'] })
-import CookieFunctions from '@/components/cookieFunctions';
 import NavBar from '@/components/navbar';
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -23,7 +21,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <CartProvider>
         <NavBar/>
-
           {children}
           <CookieConsentBanner/>
         </CartProvider>

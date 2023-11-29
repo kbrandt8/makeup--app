@@ -209,7 +209,11 @@ main {
 .home>ul>li:nth-child(even)>h1 {
   color: #f3ecef !important;
 }
-
+.flex{
+  display: flex;
+  flex-direction: row;
+  overflow:scroll;
+}
 @media (max-width:750px) {
   main {
     width: 75%;
