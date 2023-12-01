@@ -1,4 +1,4 @@
-import Product from "@/components/product"
+import Product from "@/components/productPage"
 const URL = process.env.NEXT_PUBLIC_URL
 import { products, tagList, brands } from "./lists"
 const API = process.env.NEXT_PUBLIC_API

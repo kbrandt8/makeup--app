@@ -1,4 +1,4 @@
-import Product from "@/components/product"
+import Product from "@/components/productPage"
 import { getProductPage } from "@/utils/productActions"
 
 export default async function Page({params}:{

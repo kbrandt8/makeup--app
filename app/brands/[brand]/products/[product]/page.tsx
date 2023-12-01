@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ProductType } from "@/utils/dataTypes";
 import { getData } from '@/utils/productActions'
 import ProductNav from "@/components/productNav";
-import Product from "@/components/product2";
+import Product from "@/components/product";
 
 export default async function Page({ params,searchParams }: {
   params: { brand: string, product: string }

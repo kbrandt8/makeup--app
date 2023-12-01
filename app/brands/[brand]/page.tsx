@@ -1,4 +1,4 @@
-import Product from "@/components/product2";
+import Product from "@/components/product";
 import { ProductType } from "@/utils/dataTypes";
 import { getData } from '@/utils/productActions'
 import ProductNav from "@/components/productNav";

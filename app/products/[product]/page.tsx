@@ -1,6 +1,6 @@
 import { getData } from '@/utils/productActions'
 import ProductNav from "@/components/productNav";
-import Product from '@/components/product2';
+import Product from '@/components/product';
 import { ProductType } from '@/utils/dataTypes';
 export default async function Page({ params,searchParams }: { 
   params: { product: string }
