@@ -16,8 +16,14 @@ export default async function Page({ searchParams }: {
     <ul>
 
     </ul>
-
-    <ul>{data.length > 0 ? makeup : <h1>None Found</h1>} </ul>
+    <ul 
+    className="products"
+    >
+      {data.length > 0 ? 
+      makeup : 
+      <h1>None Found</h1>} 
+      
+      </ul>
 
 
   </main>)

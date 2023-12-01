@@ -23,7 +23,14 @@ export default async function Page({ params,searchParams }: {
 
     <h1>{brand.replace("%20", " ")}  </h1>
     <h1>{product.replace("_", " ")} </h1>
-    <ul>{data.length > 0 ? makeup : <h1>None Found</h1>} </ul>
+    <ul 
+    className="products"
+    >
+      {data.length > 0 ? 
+      makeup : 
+      <h1>None Found</h1>} 
+      
+      </ul>
 
   </main>)
 }

@@ -99,6 +99,11 @@ main {
   flex-direction: column;
   text-align: center;
 }
+.products{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 
 .product {
   display: flex;
