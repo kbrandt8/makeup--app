@@ -19,8 +19,8 @@ export async function POST(request, { params }) {
     const { id } = params
     const { item } = await request.json()
     const { items } = await Cart.findOne({ _id: id, })
-    const isInCart = items.filter(product => product.id === item.id&&
-         product.product_color === item.product_color).length > 0 ? true : false
+    const isInCart = items.filter(product => product.id === item.id &&
+        product.product_color === item.product_color).length > 0 ? true : false
     if (!isInCart) {
         await connectMongoDB();
         try {
@@ -83,8 +83,6 @@ export async function PUT(request, { params }) {
             NextResponse.json({ 'message': 'could not edit quantity' })
 
         }
-
-
     } else {
         quantity -= 1
 

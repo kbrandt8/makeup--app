@@ -21,7 +21,8 @@ export async function getCart(id) {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-      }, cache: "no-store"
+        cache:'no-store'
+      }
 
 
     }
@@ -77,7 +78,7 @@ export async function removeFromCart(id, item) {
 }
 
 export async function changeQuantity(id, item, increment) {
-  if (item.quantity >= 1 && increment) {
+  if (item.quantity >= 1 && increment || !increment) {
     try {
       await fetch(`${URL}/api/cartCookies/${id}`, {
         method: "PUT",
