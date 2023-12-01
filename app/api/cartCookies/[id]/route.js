@@ -19,7 +19,8 @@ export async function POST(request, { params }) {
     const { id } = params
     const { item } = await request.json()
     const { items } = await Cart.findOne({ _id: id, })
-    const isInCart = items.filter(product => product.id === item.id && product.product_color === item.product_color).length > 0 ? true : false
+    const isInCart = items.filter(product => product.id === item.id&&
+         product.product_color === item.product_color).length > 0 ? true : false
     if (!isInCart) {
         await connectMongoDB();
         try {
@@ -51,7 +52,7 @@ export async function DELETE(request, { params }) {
             {
                 $pull: { items: item }
             })
-         
+
         return NextResponse.json({ 'message': `${item.name} deleted from cart` })
     } catch (error) {
         return NextResponse.json({ 'message': "could not delete from cart" })
@@ -75,7 +76,7 @@ export async function PUT(request, { params }) {
                     $set: { "items.$.quantity": quantity }
                 }
             )
-             
+
             return NextResponse.json({ 'message': `${item.name}'s quantity is now: ${quantity} ` })
         } catch (error) {
             console.log(error)
@@ -96,7 +97,7 @@ export async function PUT(request, { params }) {
                     }
                 }
             )
-             
+
             return NextResponse.json({ 'message': `${item.name}'s quantity is now: ${quantity} ` })
         } catch (error) {
             console.log(error)
@@ -109,21 +110,21 @@ export async function PUT(request, { params }) {
 
 
 }
-export async function PATCH(request, { params }){
+export async function PATCH(request, { params }) {
     const { id } = params;
     await connectMongoDB();
     const { items } = await Cart.findOne({ _id: id, })
-    const itemTotal = items.map(item =>parseFloat(item.price) * item.quantity) 
+    const itemTotal = items.map(item => parseFloat(item.price) * item.quantity)
     const total = itemTotal.reduce((accumulator, currentValue) => {
         return accumulator + currentValue
     }, 0)
     try {
-        await Cart.findOneAndUpdate({_id:id},{
-            total:total
+        await Cart.findOneAndUpdate({ _id: id }, {
+            total: total
         })
         return NextResponse.json({ 'message': `Cart total is now: ${total} ` })
 
-        
+
     } catch (error) {
         console.log(error)
         NextResponse.json({ 'message': 'could not edit total' })

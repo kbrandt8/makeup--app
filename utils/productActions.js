@@ -1,7 +1,8 @@
 import Product from "@/components/product"
+const URL = process.env.NEXT_PUBLIC_URL
 import { products, tagList, brands } from "./lists"
 const API = process.env.NEXT_PUBLIC_API
-const baseUrl = `https://makeup.p.rapidapi.com/products.json?`
+import product from '@/utils/product.json'
 
 const options = {
   method: 'GET',
@@ -10,30 +11,33 @@ const options = {
     'X-RapidAPI-Host': 'makeup.p.rapidapi.com'
   }
 };
-export function sortMakeup(makeup) {
-  return makeup.filter((item) =>
-    item.price !== '0.0' &&
-    item.api_featured_image !== "/images/original/missing.png" &&
-    item.api_featured_image !== undefined
-  )
-}
 
+
+//For Multiple Products
 export async function getData(product, brand, tags) {
-  const newTags = tags && tags.map(tag => tag.replace("%20", " "))
-  const productType = product ? `product_type=${product}&` : ""
-  const brandName = brand ? `brand=${brand}&` : ""
-  const tagList = tags ? `product_tags=${newTags}` : ""
-  const url = `${baseUrl}${productType}${brandName}${tagList}`;
-  console.log("Get Data URL: ", url)
-  const getMakeup = await fetch(url, options).then(response => response.json())
-  console.log("Get Data fetched data:", getMakeup.message)
-  const allMakeup = await sortMakeup(getMakeup)
-  const makeup = allMakeup.map((item) =>
+  const productType = product ? `/products/${product}` : ""
+  const brandName = brand ? `/products/brands/${brand}` : ""
+  const addProducts = brand || product ? "" : "/products"
+  const tagList = tags ? `?tags=${tags.tags}` : ""
+  const url = `${URL}api${addProducts}${brandName}${productType}${tagList}`;
+  const {products} = await fetch(url, options).then(response => response.json())
+  const makeup = products.map((item) =>
     <div key={item.id}><Product data={item} /></div>
   )
   return makeup
 }
 
+//Individual Products
+export async function getProductPage(id) {
+  const url = `${URL}api/products/productPage/${id}`
+  const getMakeup = await fetch(
+    url,
+    options).then(response => response.json())
+
+  return getMakeup
+}
+
+//For the HomePage
 
 export async function getRandomProduct() {
   let num = Math.floor(Math.random() * products.length)
@@ -41,8 +45,50 @@ export async function getRandomProduct() {
   return product
 }
 
-export async function getRandomBrand(){
+export async function getRandomBrand() {
   let num = Math.floor(Math.random() * brands.length)
   const brand = brands[num].toString()
   return brand
+}
+
+export async function getRandomTag(){
+  let num = Math.floor(Math.random()* tagList.length)
+  const tag = tagList[num].toString()
+  return tag
+}
+
+
+
+// For watering the database
+export async function getProducts() {
+  const sorted = await sortMakeup(product)
+  const schema = sorted.map(product => {
+    const item = {
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      brand: product.brand,
+      price: product.price,
+      api_featured_image: product.api_featured_image,
+      product_type: product.product_type,
+      product_colors: product.product_colors,
+      tag_list: product.tag_list
+    }
+    return item
+  })
+  addProducts(schema)
+}
+export async function addProducts(products) {
+  try {
+    const data = await fetch(`${URL}/api/water`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      }, cache: "no-store",
+      body: JSON.stringify({ products })
+    })
+    return data.json()
+  } catch (error) {
+    console.log(error)
+  }
 }

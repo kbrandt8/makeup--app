@@ -10,26 +10,34 @@ import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
 import Collapse from 'react-bootstrap/Collapse';
 import { useParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 export default function ProductNav() {
     const router = useRouter()
     const params = useParams()
+    const searchParams = useSearchParams()
+
     const [showBrands, setShowBrands] = useState(false);
     const [showProducts, setShowProducts] = useState(false);
     const [showTags, setShowTags] = useState(false)
+
     const pathname = usePathname();
-    const { brand, product, tags } = params
+    const { brand, product } = params
+    const tags = searchParams.get('tags')
+
     const brandName = brand &&  brand.toString().replace("%20"," ")
     const productName =product && product.toString().replace("_"," ")
-    const tagsLink = Array.isArray(tags) ? `/${tags.join("/")}` : ``
+    const tagsLink = tags ? `?tags=${tags?.split(",")}` : ""
     const brandLink = brand ? `/brands/${brand}` : ``
     const productLink = product ? `/products/${product}` : ``
-    const newProductLink = `${brandLink}${tagsLink}` === `` ? `/` : `${brandLink}${tagsLink}`
-    const newBrandLink = `${productLink}${tagsLink}` === `` ? `/` : `${productLink}${tagsLink}`
-    const newTagLink = `${brandLink}${productLink}` === `` ? `/` : `${brandLink}${productLink}`
+    const newProductLink = `${brandLink}${tagsLink}` === `` ? `/products` : `${brandLink}${tagsLink}`
+    const newBrandLink = `${productLink}${tagsLink}` === `` ? `/products` : `${productLink}${tagsLink}`
+    const newTagLink = `${brandLink}${productLink}` === `` ? `/products` : `${brandLink}${productLink}`
+
 
 
     return (<>
+
         <Navbar className="nav">
             <Container>
                 <Nav className="me-auto">
@@ -86,15 +94,18 @@ export default function ProductNav() {
             <div className='link-list' id='brands'>
                 {tagList.map(tag => {
                     const regex = new RegExp("tags")
-                    const path = regex.test(pathname) ? "" : "/tags"
+                    const path =  regex.test(tagsLink) ? "" : "?tags="
                     const newTag = tag.replace(" ", "%20")
                     const tagRegex = new RegExp(`${newTag}`)
-                    const isInpath = tagRegex.test(pathname)
+                    const isInpath = tagRegex.test(tagsLink)
+                    const tags = tagsLink !== "" ? tagsLink + "," : ""
+
                     if (!isInpath) {
                         return <Button
                             variant='secondary'
                             key={tagList.indexOf(tag)}
-                            href={`${pathname}${path}/${tag}`}>
+                            href={`${pathname}${path}${tags}${tag}`}>
+                               
                             {tag}
                         </Button>
                     }

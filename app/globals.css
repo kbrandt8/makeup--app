@@ -1,11 +1,11 @@
 @font-face {
   font-family: Unna;
-  src: url(./Unna-Regular.ttf);
+  src: url(./fonts/Unna-Regular.ttf);
 }
 
 @font-face {
   font-family: Poppins;
-  src: url(./Poppins-Light.ttf);
+  src: url(./fonts/Poppins-Light.ttf);
 }
 
 body {
@@ -180,6 +180,14 @@ main {
 
 .home>ul>li {
   padding: 3rem;
+  background-blend-mode:overlay;
+  background-size: cover;
+
+}
+.home>ul>li>img{
+  float: right;
+  border-radius:300px;
+
 }
 
 .home>ul>li>h1 {
@@ -193,20 +201,34 @@ main {
 }
 
 .home>ul>li>p {
-  text-align: center;
+  text-align: left;
+  width:75%;
+}
+.home>ul>li>ul{
+
 }
 
 .home>ul>li:nth-child(odd) {
+  text-align: right;
+  background-position: left;
+  background-image: url('./images/eyeshadow_background.jpg');
   background-color: #F3ECEF;
   color: #562A39;
-
 }
 
 .home>ul>li:nth-child(even) {
+  text-align:left;
+  background-position: right;
   background-color: #904660;
+  background-image: url('./images/polish_background.jpg');
+
 }
 
 .home>ul>li:nth-child(even)>h1 {
+  color: #f3ecef !important;
+}
+.home>ul>li:nth-child(even)>h5>a {
+  
   color: #f3ecef !important;
 }
 .flex{

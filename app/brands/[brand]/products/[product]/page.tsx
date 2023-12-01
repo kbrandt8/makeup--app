@@ -5,15 +5,17 @@ import { getData } from '@/utils/productActions'
 import ProductNav from "@/components/productNav";
 import Product from "@/components/product";
 
-export default async function Page({ params }: {
+export default async function Page({ params,searchParams }: {
   params: { brand: string, product: string }
-}) {
+  searchParams?: { tags: [string] }
+}) {    
+  const tags = searchParams?.tags?.length ? searchParams : false
   const { product, brand } = params
-  const data = await getData(product, brand)
+  const data = await getData(product, brand,tags)
 
 
   return (<main>
-    <ProductNav product={true} brand={true} tags={false} />
+    <ProductNav  />
 
 
     <h1>{brand.replace("%20", " ")}  </h1>
