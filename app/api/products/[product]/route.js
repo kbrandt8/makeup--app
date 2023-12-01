@@ -14,22 +14,21 @@ export async function GET(request,{params}){
                 product_type:product,
                 tag_list:{$all : tags}
             })
-            return NextResponse.json({products})
+            return NextResponse.json({ products })
         } catch (error) {
             console.log(error)
           throw new Error("Could not fetch")  
         }     
     }else{
-   
-    try {
-        const products = await Product.findOne({
-            product_type:product
-        })
-        return NextResponse.json({products})
-    } catch (error) {
-        console.log(error)
-      throw new Error("Could not fetch")  
-    }     
+        try {
+            const products = await Product.find({
+                product_type:product,
+            })
+            return NextResponse.json({ products })
+        } catch (error) {
+            console.log(error)
+          throw new Error("Could not fetch")  
+        }      
     }
 
 

@@ -90,7 +90,7 @@ export async function changeQuantity(id, item, increment) {
       console.log(error)
     }
   } else if (item.quantity <= 1 && !increment) {
-    console.log("Removing")
+  
     removeFromCart(id, item)
   }
 }

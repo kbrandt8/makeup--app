@@ -9,7 +9,7 @@ export async function POST(request,{params}){
     try {
         await Product.create(products)
         const product = await Product.findOne({id:products[0].id})
-        console.log(product.name)
+       
         return NextResponse.json(product)
     } catch (error) {
         console.log(error)
