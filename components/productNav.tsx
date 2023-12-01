@@ -25,8 +25,6 @@ export default function ProductNav() {
     const { brand, product } = params
     const tags = searchParams.get('tags')
 
-    const brandName = brand &&  brand.toString().replace("%20"," ")
-    const productName =product && product.toString().replace("_"," ")
     const tagsLink = tags ? `?tags=${tags?.split(",")}` : ""
     const brandLink = brand ? `/brands/${brand}` : ``
     const productLink = product ? `/products/${product}` : ``
@@ -94,7 +92,7 @@ export default function ProductNav() {
             <div className='link-list' id='brands'>
                 {tagList.map(tag => {
                     const regex = new RegExp("tags")
-                    const path =  regex.test(tagsLink) ? "" : "?tags="
+                    const path = regex.test(tagsLink) ? "" : "?tags="
                     const newTag = tag.replace(" ", "%20")
                     const tagRegex = new RegExp(`${newTag}`)
                     const isInpath = tagRegex.test(tagsLink)
@@ -105,7 +103,7 @@ export default function ProductNav() {
                             variant='secondary'
                             key={tagList.indexOf(tag)}
                             href={`${pathname}${path}${tags}${tag}`}>
-                               
+
                             {tag}
                         </Button>
                     }
@@ -113,16 +111,24 @@ export default function ProductNav() {
             </div>
         </Collapse>
         {productLink !== "" &&
-            <Button href={`${newProductLink}`}>{productName}</Button>}
+            <Button
+                href={`${newProductLink}`}
+            >
+                Clear Product Type
+            </Button>}
         {brandLink !== "" &&
-            <Button href={`${newBrandLink}`}>{brandName}</Button>}
-    {tagsLink !== "" &&
+            <Button
+                href={`${newBrandLink}`}
+            >
+                Clear Brand
+            </Button>}
+        {tagsLink !== "" &&
             <Button
                 href={`${newTagLink}`}
             >
                 Clear Tags
             </Button>}
-        
+
 
     </>
     )
