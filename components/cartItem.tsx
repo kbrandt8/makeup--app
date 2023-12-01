@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation'
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
+import Card from 'react-bootstrap/Card';
 import { CartItemType } from "@/utils/dataTypes";
 export default function CartItem({ data }: {
     data: CartItemType
@@ -21,15 +22,15 @@ export default function CartItem({ data }: {
     const initialPrice = parseFloat(data.price) * data.quantity
     const fullPrice = initialPrice.toFixed(2)
     return (
-        <div className="product">
+        <div className="cart-item">
+            <h4>{data.name}</h4>
             <h5>{data.brand} </h5>
             <Link
                 href={`/productPage/${data.id}`}>
-                <h4>{data.name}</h4>
-                <Image src={'https:' + data.img_url} alt={data.name} width={100} height={100} />
+                <Image src={'https:' + data.img_url} alt={data.name} width={200} height={200} className="cart-item-image" />
             </Link>
-            <h5><Link href={`${data.brand}/${data.product_type}`}>{data.product_type}</Link></h5>
-            <h6>{data.product_color}</h6>
+            {data.product_color &&
+            <h6>Color: {data.product_color}</h6>}
             <h5>${fullPrice}</h5>
             <div className="product-info">
                 {data?.quantity &&

@@ -49,15 +49,10 @@ export default function Home({ display }: {
        
                                 </Card.Body>
                             </Card>
-                            {/* <Link
-                                href={`/productPage/${item.id}`}
-                            ><Image src={'https:' + item.img_url} alt={item.name} width={100} height={100} />
-                            </Link>*/}
+
                                                          <Button href={`/products/${item.product_type}`}> {item.product_type}</Button><br/>
                                     <Button href={`/brands/${item.brand}`}> {item.brand} Products</Button>
-{/* 
-                            <h6> <Link href={`/products/${item.product_type}`}>Explore more {item.product_type}</Link></h6>
-                            <h6><Link href={`/brands/${item.brand}`}>See more {item.brand} Products</Link></h6>  */}
+
                         </li>
                     )}
                 </ul>

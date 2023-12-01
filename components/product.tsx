@@ -23,7 +23,7 @@ export default function Product({ data }: {
             <Link
                 href={`/productPage/${data.id}`}
             >
-                <Card style={{ width: '8rem' }} className="product-group">
+                <Card style={{ width: '8rem' }} className="product-card">
                     <Card.Img variant="top" src={'https:' + data.api_featured_image} />
                     <Card.Body>
 
