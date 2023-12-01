@@ -8,7 +8,8 @@ import { useRouter } from 'next/navigation'
 import { Button } from "react-bootstrap"
 import { startCart } from "@/utils/cartActions"
 import { brands, products, tagList } from "@/utils/lists"
-import Product from "./product2"
+import Product from "./product"
+import Card from 'react-bootstrap/Card';
 
 export default function Home({ display }: {
     display: {
@@ -31,52 +32,60 @@ export default function Home({ display }: {
 
 
         {total > 0 &&
-    
-                <div className='your-picks'>
-                    <h1>Your Picks</h1>
-                    {showCookie && <Button onClick={() => { startCart(); setShowCookie(false) }}>Enable Cookies For a Better Experience</Button>}
-                    <ul className='display'>
-                        {items.slice(0,2).map((item: CartItemType) =>
-                            <li key={item.id}>
-                                <Link
-                                href={`/productPage/${item.id}`}
-                                ><Image src={'https:' + item.img_url} alt={item.name} width={100} height={100} />
-                                </Link>
-                                <h3> <Link href={`/products/${item.product_type}`}>Explore more {item.product_type}</Link></h3>
-                                <h3><Link href={`/brands/${item.brand}`}>See more {item.brand} Products</Link></h3>
-                            </li>
-                        )}
-                    </ul>
-                </div>
-        }
 
-        
-<ul>
-
-       <li><h1>{display.displayProduct[0].product_type.replace("_"," ")}</h1>
-                <div className='display'>
-                    {display.displayProduct.slice(0, 5).map((item: ProductType) =>
+            <div className='your-picks'>
+                <h1>Your Picks</h1>
+                {showCookie && <Button onClick={() => { startCart(); setShowCookie(false) }}>Enable Cookies For a Better Experience</Button>}
+                <ul className='display'>
+                    {items.slice(0, 2).map((item: CartItemType) =>
                         <li key={item.id}>
-                            <Product data={item} />
+                            <Card style={{ width: '8rem' }}>
+                                <Card.Img variant="top" src={'https:' + item.img_url} />
+                                <Card.Body>
+
+                                    <Card.Text>
+                                        {item.name}
+                                    </Card.Text>
+       
+                                </Card.Body>
+                            </Card>
+                            {/* <Link
+                                href={`/productPage/${item.id}`}
+                            ><Image src={'https:' + item.img_url} alt={item.name} width={100} height={100} />
+                            </Link>*/}
+                                                         <Button href={`/products/${item.product_type}`}> {item.product_type}</Button><br/>
+                                    <Button href={`/brands/${item.brand}`}> {item.brand} Products</Button>
+{/* 
+                            <h6> <Link href={`/products/${item.product_type}`}>Explore more {item.product_type}</Link></h6>
+                            <h6><Link href={`/brands/${item.brand}`}>See more {item.brand} Products</Link></h6>  */}
                         </li>
-
                     )}
-                </div></li>
+                </ul>
+            </div>
+        }
+        <ul>
 
-        
+            <li>
+                <h1>{display.displayProduct[0].product_type.replace("_", " ")}</h1>
+                <ul className='display'>
+                    {display.displayProduct.slice(0, 4).map((item: ProductType) =>
+                        <Product data={item} key={item.id} />
+                    )}
+                </ul>
+            </li>
+
+
             <li><h1> {display.displayBrand[0].brand}</h1>
                 <ul className='display'>
-                    {display.displayBrand.slice(0, 5).map((item: ProductType) =>
-                        <li key={item.id}>
-                            <Product data={item} />
-                        </li>
+                    {display.displayBrand.slice(0, 4).map((item: ProductType) =>
+
+                        <Product data={item} key={item.id} />
+
 
                     )}
                 </ul>
 
             </li>
-
-
             <li><h1>View By Product</h1>
 
                 {products.map((item: string) =>
