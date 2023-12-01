@@ -6,8 +6,6 @@ export async function GET(request, { params }) {
     const { brand, product } = params
     const tagParams = request.nextUrl.searchParams.get('tags');
     const tags = tagParams && tagParams.split(",")
-    console.log(brand,product,tags)
-
     await connectMongoDB();
     if (tags) {
         try {
