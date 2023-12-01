@@ -1,4 +1,6 @@
 'use client'
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import { useCartContext } from "@/context/context"
 import { useState, useEffect } from 'react'
 import { CartItemType, ProductType } from "@/utils/dataTypes"
@@ -17,7 +19,26 @@ export default function Home({ display }: {
         displayProduct: [ProductType]
     }
 }) {
-    const router = useRouter()
+    const responsive = {
+        superLargeDesktop: {
+            // the naming can be any, depends on you.
+            breakpoint: { max: 4000, min: 3000 },
+            items: 6
+        },
+        desktop: {
+            breakpoint: { max: 3000, min: 1024 },
+            items: 5
+        },
+        tablet: {
+            breakpoint: { max: 1024, min: 700 },
+            items: 4
+        },
+        mobile: {
+            breakpoint: { max: 700, min: 0 },
+            items: 2
+        }
+    };
+
     const { cartId, total, items } = useCartContext()
     const [showCookie, setShowCookie] = useState(false)
 
@@ -46,39 +67,66 @@ export default function Home({ display }: {
                                     <Card.Text>
                                         {item.name}
                                     </Card.Text>
-       
+
                                 </Card.Body>
                             </Card>
 
-                                                         <Button href={`/products/${item.product_type}`}> {item.product_type}</Button><br/>
-                                    <Button href={`/brands/${item.brand}`}> {item.brand} Products</Button>
+                            <Button href={`/products/${item.product_type}`}> {item.product_type}</Button><br />
+                            <Button href={`/brands/${item.brand}`}> {item.brand} Products</Button>
 
                         </li>
                     )}
+
+
                 </ul>
             </div>
         }
+
+
         <ul>
 
             <li>
                 <h1>{display.displayProduct[0].product_type.replace("_", " ")}</h1>
-                <ul className='display'>
-                    {display.displayProduct.slice(0, 4).map((item: ProductType) =>
+
+                <Carousel
+                    responsive={responsive}
+                    infinite={true}
+                    swipeable={true}
+                    draggable={true}
+                    showDots={false}
+                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                    autoPlay={true}
+                    autoPlaySpeed={4000}
+        
+
+                >
+                    {display.displayProduct.map((item: ProductType) =>
                         <Product data={item} key={item.id} />
                     )}
-                </ul>
+                </Carousel>
+
             </li>
 
 
             <li><h1> {display.displayBrand[0].brand}</h1>
-                <ul className='display'>
-                    {display.displayBrand.slice(0, 4).map((item: ProductType) =>
+                <Carousel
+                    responsive={responsive}
+                    infinite={true}
+                    swipeable={true}
+                    draggable={true}
+                    showDots={false}
+                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                    autoPlay={true}
+                    autoPlaySpeed={3000}
+
+                >
+                    {display.displayBrand.map((item: ProductType) =>
 
                         <Product data={item} key={item.id} />
 
 
                     )}
-                </ul>
+                </Carousel>
 
             </li>
             <li><h1>View By Product</h1>
