@@ -3,7 +3,7 @@ export type ProductType ={
     name:string,
     description:string,
     brand:string,
-    price:number,
+    price:string,
     api_featured_image:string,
     product_type:string,
     product_colors:[{

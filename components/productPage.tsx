@@ -37,11 +37,23 @@ export default function Product({ data }: {
     const isColorSelected = !selectedColor && colorSelect ? true : false
     const regex = new RegExp("tags")
     const path = regex.test(pathname) ? "" : "/tags"
+    const URL = process.env.NEXT_PUBLIC_URL
 
     return (
-        <div className="product">
-            <Image src={'https:' + data.api_featured_image} alt={data.name} width={100} height={100} />
-            <h4>{data.name}</h4>
+        <div className="product-page">
+            <div className="product-img-wrap">
+            <Image src={'https:' + data.api_featured_image} alt={data.name} width={200} height={200} />
+
+            </div>
+            
+            <h1>{data.name}</h1>
+            <h1>
+                <Link
+                href={`/brands/${data.brand}`}
+                >
+                {data.brand}
+                </Link>
+                </h1>
             <h5>{selectedColor}</h5>
             {alert && <h5>Set Color Before Adding To Cart!</h5>}
 
@@ -53,6 +65,7 @@ export default function Product({ data }: {
 
                 <Button
                     variant="secondary"
+                    className="show-desc"
                     onClick={() => setShowDesc(!showDesc)}
 
                 >
@@ -60,22 +73,6 @@ export default function Product({ data }: {
                 </Button>
             </div>}
             <div className="product-info">
-            {data.tag_list?.length > 0 &&
-                <div className="product-features">
-                    <h5>Product tags:</h5>
-                    {data.tag_list.map((tag: string) => {
-                            const newTag = tag.replace(" ","%20")
-                            const tagRegex = new RegExp(`${newTag}`)
-                            const isInpath = tagRegex.test(pathname) 
-                    
-                    if(!isInpath){
-                   return <Link href={`${pathname}${path}/${tag}`} key={data.tag_list.indexOf(tag)}>{tag}</Link>
-                } else{
-                    return <p key={data.tag_list.indexOf(tag)}>{tag}</p>
-                }
-                    })}
-
-                </div>}
                 <ul className="product-colors">
                     {data.product_colors?.map(color => {
                         const colorClass = selectedColor === color.colour_name ? "selected-li" : ""
@@ -90,10 +87,25 @@ export default function Product({ data }: {
                 </ul>
                 <h5>${price}</h5>
                 {isColorSelected ?
-                    <Button onClick={() => { setAlert(true) }}>Add To Cart</Button>
+                    <Button className="add-to-cart" onClick={() => { setAlert(true) }}>Add To Cart</Button>
                     :
-                    <Button onClick={() => { cartId && addToCart(cartId, product); addItem(product); router.refresh() }}>Add To Cart</Button>
+                    <Button className="add-to-cart" onClick={() => { cartId && addToCart(cartId, product); addItem(product); router.refresh() }}>Add To Cart</Button>
                 }</div>
+
+
+            {data.tag_list?.length > 0 &&
+                <div className="product-features">
+                    {data.tag_list.map((tag: string) =>
+                        <Button 
+                        className="tag"
+                        href={`/products?tags=${tag}`} 
+                        key={data.tag_list.indexOf(tag)}>
+                            View more {tag} items
+                            </Button>
+
+                    )}
+
+                </div>}
         </div>
     )
 }
