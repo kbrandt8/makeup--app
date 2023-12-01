@@ -18,14 +18,14 @@ export default async function Page({ params, searchParams }: {
     return (<main>
         <ProductNav />
 
-
-        <h1>{brand.replace("%20", " ")}</h1>
+{data.length > 0 &&
+        <h1>All {brand.replace("%20", " ")} Products </h1>}
         <ul 
     className="products"
     >
       {data.length > 0 ? 
       makeup : 
-      <h1>None Found</h1>} 
+      <h1>No items of that description were found.</h1>} 
       
       </ul>
 

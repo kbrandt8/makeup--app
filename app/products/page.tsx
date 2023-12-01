@@ -13,15 +13,12 @@ export default async function Page({ searchParams }: {
 
   return (<main>
     <ProductNav/>
-    <ul>
-
-    </ul>
     <ul 
     className="products"
     >
       {data.length > 0 ? 
       makeup : 
-      <h1>None Found</h1>} 
+      <h1>No items of that description were found.</h1>} 
       
       </ul>
 

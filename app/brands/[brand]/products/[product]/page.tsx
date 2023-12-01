@@ -20,15 +20,15 @@ export default async function Page({ params,searchParams }: {
   return (<main>
     <ProductNav  />
 
+{data.length > 0 &&
+    <h1>{brand.replace("%20", " ")} {product.replace("_", " ")}  </h1>}
 
-    <h1>{brand.replace("%20", " ")}  </h1>
-    <h1>{product.replace("_", " ")} </h1>
     <ul 
     className="products"
     >
       {data.length > 0 ? 
       makeup : 
-      <h1>None Found</h1>} 
+      <h1>No items of that description were found.</h1>} 
       
       </ul>
 
