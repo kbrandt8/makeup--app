@@ -26,12 +26,13 @@ export default function Home({ display }: {
         },
         tablet: {
             breakpoint: { max: 1024, min: 700 },
-            items: 4
+            items: 3
         },
         mobile: {
-            breakpoint: { max: 700, min: 0 },
+            breakpoint: { max: 700, min: 400 },
             items: 2
-        }
+        },
+
     };
 
     const { cartId} = useCartContext()
