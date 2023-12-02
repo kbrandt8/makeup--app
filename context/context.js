@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import { createContext, useContext, useState, useEffect } from 'react';
 import cookie from "js-cookie";
 import { changeQuantity, startCart } from '@/utils/cartActions';
+const URL = process.env.NEXT_PUBLIC_URL
 const CartContext = createContext();
 export function CartProvider({ children }) {
     const [items, setItems] = useState([])
@@ -10,7 +11,7 @@ export function CartProvider({ children }) {
     const loggedIn = cookie.get('cookieConsent') === 'accepted' ? true : false
     const cartId = cookie.get('cartId')
     const fetcher = (url) => fetch(url).then((res) => res.json());
-    const getCart = `http://localhost:3000/api/cartCookies/${cartId}`
+    const getCart = `${URL}api/cartCookies/${cartId}`
     const { data, error, isLoading } = useSWR(getCart, fetcher)
     const cartNumber = getTotalItems(items)
     useEffect(() => {
