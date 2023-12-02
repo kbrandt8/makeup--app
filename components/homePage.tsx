@@ -11,7 +11,7 @@ import { Button } from "react-bootstrap"
 import { startCart } from "@/utils/cartActions"
 import { brands, products, tagList } from "@/utils/lists"
 import Product from "./product"
-import Card from 'react-bootstrap/Card';
+import { FaArrowLeft,FaArrowRight } from "react-icons/fa6";
 
 export default function Home({ display }: {
     display: {
@@ -52,41 +52,16 @@ export default function Home({ display }: {
     return (<div className="home">
 
 
-        {total > 0 &&
-
-            <div className='your-picks'>
-                <h1>Your Picks</h1>
-                {showCookie && <Button onClick={() => { startCart(); setShowCookie(false) }}>Enable Cookies For a Better Experience</Button>}
-                <ul className='display'>
-                    {items.slice(0, 2).map((item: CartItemType) =>
-                        <li key={item.id}>
-                            <Card style={{ width: '8rem' }}>
-                                <Card.Img variant="top" src={'https:' + item.img_url} />
-                                <Card.Body>
-
-                                    <Card.Text>
-                                        {item.name}
-                                    </Card.Text>
-
-                                </Card.Body>
-                            </Card>
-
-                            <Button href={`/products/${item.product_type}`}> {item.product_type}</Button><br />
-                            <Button href={`/brands/${item.brand}`}> {item.brand} Products</Button>
-
-                        </li>
-                    )}
-
-
-                </ul>
-            </div>
-        }
-
-
         <ul>
 
             <li>
-                <h1>{display.displayProduct[0].product_type.replace("_", " ")}</h1>
+                <h1>
+                    <Link
+                        href={`/products/${display.displayProduct[0].product_type}`}
+                    >
+                        View {display.displayProduct[0].product_type.replace("_", " ")}
+                    </Link>
+                </h1>
 
                 <Carousel
                     responsive={responsive}
@@ -97,7 +72,7 @@ export default function Home({ display }: {
                     removeArrowOnDeviceType={["tablet", "mobile"]}
                     autoPlay={true}
                     autoPlaySpeed={4000}
-        
+
 
                 >
                     {display.displayProduct.map((item: ProductType) =>
@@ -108,7 +83,13 @@ export default function Home({ display }: {
             </li>
 
 
-            <li><h1> {display.displayBrand[0].brand}</h1>
+            <li>
+                <h1>
+                    <Link
+                        href={`/brands/${display.displayBrand[0].brand}`}
+                    > View {display.displayBrand[0].brand} Products
+                    </Link>
+                </h1>
                 <Carousel
                     responsive={responsive}
                     infinite={true}
@@ -118,6 +99,9 @@ export default function Home({ display }: {
                     removeArrowOnDeviceType={["tablet", "mobile"]}
                     autoPlay={true}
                     autoPlaySpeed={3000}
+                    customRightArrow={<FaArrowRight/>}
+                    customLeftArrow={<FaArrowLeft/>}
+
 
                 >
                     {display.displayBrand.map((item: ProductType) =>

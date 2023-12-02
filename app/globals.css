@@ -314,8 +314,17 @@ h1 {
 
 }
 
-.home>ul>li:nth-child(even)>h1 {
+.home>ul>li:nth-child(even)>h1>a {
   color: #f3ecef !important;
+}
+.home>ul>li:nth-child(even)>h1>a:hover {
+  letter-spacing: normal;
+  color:#562A39 !important;
+}
+
+.home>ul>li:nth-child(odd)>h1>a:hover {
+  letter-spacing: normal;
+  color:#562A39 !important;
 }
 
 .home>ul>li:nth-child(even)>h5>a {
@@ -327,6 +336,10 @@ h1 {
   flex-direction: row;
   flex-wrap: wrap;
   margin: 0 auto;
+}
+
+.react-multiple-carousel__arrow{
+  background-color: #562a3988 !important;
 }
 
 .flex {
