@@ -29,7 +29,7 @@ export default function Home({ display }: {
             items: 3
         },
         mobile: {
-            breakpoint: { max: 700, min: 400 },
+            breakpoint: { max: 700, min: 0 },
             items: 2
         },
 
