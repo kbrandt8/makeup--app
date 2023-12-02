@@ -70,7 +70,7 @@ export default function Home({ display }: {
 
                 >
                     {display.displayProduct.map((item: ProductType) =>
-                        <button key={item.id} className="display-item" >
+                        <Link key={item.id} className="display-item"  href={`/productPage/${item.id}`}>
                             <Image
                                 src={'https:' + item.api_featured_image}
                                 alt={item.name}
@@ -78,7 +78,7 @@ export default function Home({ display }: {
                                 height={100}
                             />
 
-                        </button>
+                        </Link>
                     )}
                 </Carousel>
 
@@ -107,7 +107,7 @@ export default function Home({ display }: {
                 >
                     {display.displayBrand.map((item: ProductType) =>
 
-                        <button key={item.id} className="display-item" >
+                        <Link key={item.id} className="display-item"  href={`/productPage/${item.id}`}>
                             <Image
                                 src={'https:' + item.api_featured_image}
                                 alt={item.name}
@@ -115,7 +115,7 @@ export default function Home({ display }: {
                                 height={100}
                             />
 
-                        </button>
+                        </Link>
                     )}
                 </Carousel>
 
