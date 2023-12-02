@@ -2,13 +2,8 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useCartContext } from "@/context/context"
-import { useState, useEffect } from 'react'
-import { CartItemType, ProductType } from "@/utils/dataTypes"
-import Image from "next/image"
+import { ProductType } from "@/utils/dataTypes"
 import Link from "next/link"
-import { useRouter } from 'next/navigation'
-import { Button } from "react-bootstrap"
-import { startCart } from "@/utils/cartActions"
 import { brands, products, tagList } from "@/utils/lists"
 import Product from "./product"
 import { FaArrowLeft,FaArrowRight } from "react-icons/fa6";
@@ -39,16 +34,9 @@ export default function Home({ display }: {
         }
     };
 
-    const { cartId, total, items } = useCartContext()
-    const [showCookie, setShowCookie] = useState(false)
+    const { cartId} = useCartContext()
 
-    useEffect(() => {
-        if (cartId) {
-            setShowCookie(false)
-        } else {
-            setShowCookie(true)
-        }
-    }, [cartId])
+
     return (<div className="home">
 
 
@@ -133,7 +121,9 @@ export default function Home({ display }: {
                 {brands.map((item: string) =>
                     <h5 key={brands.indexOf(item)}>
                         <Link href={`/brands/${item}`}>{item}</Link>
-                    </h5>)}
+                    </h5>
+                    
+                    )}
 
             </li>
 
