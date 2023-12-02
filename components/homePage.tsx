@@ -30,7 +30,7 @@ export default function Home({ display }: {
             items: 3
         },
         mobile: {
-            breakpoint: { max: 700, min: 300 },
+            breakpoint: { max: 700, min: 400 },
             items: 2
         },
         smallMobile: {
