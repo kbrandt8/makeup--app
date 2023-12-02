@@ -365,16 +365,32 @@ h1 {
 .cart-item-image:hover {
   border: #562A39 5px solid;
 }
-
+.display-item>img{
+  border: #562A39 2px solid;
+  border-radius: 100px;
+  width:150px;
+  height:150px;
+}
+.display-item{
+  border: 0px;
+  background-color: transparent;
+  padding:0px
+}
 @media (max-width:750px) {
-
+  .display-item>img{
+    width:125px;
+    height:125px;
+  }
   main {
     width: 75%;
   }
 }
 
 @media (max-width:500px) {
-
+  .display-item>img{
+    width:100px;
+    height:100px;
+  }
   main {
     width: 100%;
   }

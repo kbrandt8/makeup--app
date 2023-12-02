@@ -4,9 +4,10 @@ import "react-multi-carousel/lib/styles.css";
 import { useCartContext } from "@/context/context"
 import { ProductType } from "@/utils/dataTypes"
 import Link from "next/link"
+import Image from "next/image";
 import { brands, products, tagList } from "@/utils/lists"
 import Product from "./product"
-import { FaArrowLeft,FaArrowRight } from "react-icons/fa6";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 export default function Home({ display }: {
     display: {
@@ -29,13 +30,17 @@ export default function Home({ display }: {
             items: 3
         },
         mobile: {
-            breakpoint: { max: 700, min: 400 },
+            breakpoint: { max: 700, min: 300 },
             items: 2
+        },
+        smallMobile: {
+            breakpoint: { max: 300, min: 0 },
+            items: 1
         },
 
     };
 
-    const { cartId} = useCartContext()
+    const { cartId } = useCartContext()
 
 
     return (<div className="home">
@@ -58,14 +63,22 @@ export default function Home({ display }: {
                     swipeable={true}
                     draggable={true}
                     showDots={false}
-                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                    removeArrowOnDeviceType={["tablet", "mobile","smallMobile"]}
                     autoPlay={true}
                     autoPlaySpeed={4000}
 
 
                 >
                     {display.displayProduct.map((item: ProductType) =>
-                        <Product data={item} key={item.id} />
+                        <button key={item.id} className="display-item" >
+                            <Image
+                                src={'https:' + item.api_featured_image}
+                                alt={item.name}
+                                width={100}
+                                height={100}
+                            />
+
+                        </button>
                     )}
                 </Carousel>
 
@@ -85,19 +98,24 @@ export default function Home({ display }: {
                     swipeable={true}
                     draggable={true}
                     showDots={false}
-                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                    removeArrowOnDeviceType={["tablet", "mobile","smallMobile"]}
                     autoPlay={true}
                     autoPlaySpeed={3000}
-                    customRightArrow={<FaArrowRight/>}
-                    customLeftArrow={<FaArrowLeft/>}
-
+                    customRightArrow={<FaArrowRight />}
+                    customLeftArrow={<FaArrowLeft />}
 
                 >
                     {display.displayBrand.map((item: ProductType) =>
 
-                        <Product data={item} key={item.id} />
+                        <button key={item.id} className="display-item" >
+                            <Image
+                                src={'https:' + item.api_featured_image}
+                                alt={item.name}
+                                width={100}
+                                height={100}
+                            />
 
-
+                        </button>
                     )}
                 </Carousel>
 
@@ -123,8 +141,8 @@ export default function Home({ display }: {
                     <h5 key={brands.indexOf(item)}>
                         <Link href={`/brands/${item}`}>{item}</Link>
                     </h5>
-                    
-                    )}
+
+                )}
 
             </li>
 
