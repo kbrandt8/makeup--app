@@ -38,8 +38,10 @@ export default function Home({ display }: {
     const newWidth = () => {
         setWidth(window.innerWidth)
     }
+   // eslint-disable-next-line
     useEffect(() => {
         if (window) {
+            setWidth(window.innerWidth)
             window.addEventListener("resize", newWidth);
         }
     })
