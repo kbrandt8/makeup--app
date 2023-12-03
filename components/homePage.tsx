@@ -1,13 +1,13 @@
 'use client'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useCartContext } from "@/context/context"
 import { ProductType } from "@/utils/dataTypes"
 import Link from "next/link"
 import Image from "next/image";
 import { brands, products, tagList } from "@/utils/lists"
-import Product from "./product"
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import { useState, useCallback, useEffect } from 'react';
+
 
 export default function Home({ display }: {
     display: {
@@ -15,6 +15,7 @@ export default function Home({ display }: {
         displayProduct: [ProductType]
     }
 }) {
+    const [width, setWidth] = useState(0)
     const responsive = {
         superLargeDesktop: {
             // the naming can be any, depends on you.
@@ -30,84 +31,52 @@ export default function Home({ display }: {
             items: 3
         },
         mobile: {
-            breakpoint: { max: 700, min: 400 },
+            breakpoint: { max: 700, min: 500 },
             items: 2
         },
-        smallMobile: {
-            breakpoint: { max: 300, min: 0 },
-            items: 1
-        },
-
     };
+    const newWidth = () => {
+        setWidth(window.innerWidth)
+    }
+    useEffect(() => {
+        if (window) {
+            window.addEventListener("resize", newWidth);
+        }
+    })
 
-    const { cartId } = useCartContext()
-
-
+    const displayProductName = display.displayProduct[0].product_type.replace("_", " ")
+    const displayBrandName = display.displayBrand[0].brand
     return (<div className="home">
 
 
         <ul>
 
-            <li>
+            <li className="display">
                 <h1>
                     <Link
                         href={`/products/${display.displayProduct[0].product_type}`}
                     >
-                        View {display.displayProduct[0].product_type.replace("_", " ")}
+                        View {displayProductName}
+                        {displayProductName === "eyebrow" && " Products"}
                     </Link>
                 </h1>
 
-                <Carousel
+                {width > 500 && <Carousel
                     responsive={responsive}
                     infinite={true}
                     swipeable={true}
                     draggable={true}
                     showDots={false}
-                    removeArrowOnDeviceType={["tablet", "mobile","smallMobile"]}
-                    autoPlay={true}
-                    autoPlaySpeed={4000}
-
-
-                >
-                    {display.displayProduct.map((item: ProductType) =>
-                        <Link key={item.id} className="display-item"  href={`/productPage/${item.id}`}>
-                            <Image
-                                src={'https:' + item.api_featured_image}
-                                alt={item.name}
-                                width={100}
-                                height={100}
-                            />
-
-                        </Link>
-                    )}
-                </Carousel>
-
-            </li>
-
-
-            <li>
-                <h1>
-                    <Link
-                        href={`/brands/${display.displayBrand[0].brand}`}
-                    > View {display.displayBrand[0].brand} Products
-                    </Link>
-                </h1>
-                <Carousel
-                    responsive={responsive}
-                    infinite={true}
-                    swipeable={true}
-                    draggable={true}
-                    showDots={false}
-                    removeArrowOnDeviceType={["tablet", "mobile","smallMobile"]}
+                    removeArrowOnDeviceType={["tablet", "mobile"]}
                     autoPlay={true}
                     autoPlaySpeed={3000}
                     customRightArrow={<FaArrowRight />}
                     customLeftArrow={<FaArrowLeft />}
+                    className="Carousel"
 
                 >
-                    {display.displayBrand.map((item: ProductType) =>
-
-                        <Link key={item.id} className="display-item"  href={`/productPage/${item.id}`}>
+                    {display.displayProduct.map((item: ProductType) =>
+                        <Link key={item.id} className="display-item" href={`/productPage/${item.id}`}>
                             <Image
                                 src={'https:' + item.api_featured_image}
                                 alt={item.name}
@@ -117,10 +86,79 @@ export default function Home({ display }: {
 
                         </Link>
                     )}
-                </Carousel>
+                </Carousel>}
+                {width <= 500 &&
+                    <div className="small-display">
+                        {display.displayProduct.slice(0, 3).map((item: ProductType) =>
+                            <Link key={item.id} className="display-item small-display-item" href={`/productPage/${item.id}`}>
+                                <Image
+                                    src={'https:' + item.api_featured_image}
+                                    alt={item.name}
+                                    width={100}
+                                    height={100}
+                                />
+
+                            </Link>
+                        )}
+                    </div>}
+            </li>
+            <li className="display">
+                <h1>
+                    <Link
+                        href={`/brands/${display.displayBrand[0].brand}`}
+                    > View {displayBrandName} Products
+                    </Link>
+                </h1>
+                {width > 500 && <Carousel
+                    responsive={responsive}
+                    infinite={true}
+                    swipeable={true}
+                    draggable={true}
+                    showDots={false}
+                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                    autoPlay={true}
+                    autoPlaySpeed={3000}
+                    customRightArrow={<FaArrowRight />}
+                    customLeftArrow={<FaArrowLeft />}
+                    className="Carousel"
+
+                >
+                    {display.displayBrand.map((item: ProductType) =>
+
+                        <Link key={item.id} className="display-item" href={`/productPage/${item.id}`}>
+                            <Image
+                                src={'https:' + item.api_featured_image}
+                                alt={item.name}
+                                width={100}
+                                height={100}
+                            />
+
+                        </Link>
+                    )}
+                </Carousel>}
+
+                {width <= 500 &&
+                    <div className="small-display">
+
+                        {display.displayBrand.slice(0, 3).map((item: ProductType) =>
+
+                            <Link key={item.id} className="display-item small-display-item" href={`/productPage/${item.id}`}>
+                                <Image
+                                    src={'https:' + item.api_featured_image}
+                                    alt={item.name}
+                                    width={100}
+                                    height={100}
+                                />
+
+                            </Link>
+                        )}
+                    </div>}
 
             </li>
-            <li><h1>View By Product</h1>
+
+
+            <li className="category-item">
+                <h1>View By Product</h1>
 
                 {products.map((item: string) =>
                     <h5 key={products.indexOf(item)}>
@@ -128,7 +166,9 @@ export default function Home({ display }: {
                     </h5>)}
 
             </li>
-            <li><h1>View By Tag</h1>
+            <li className="category-item">
+                
+                <h1>View By Tag</h1>
 
                 {tagList.map((item: string) =>
                     <h5 key={tagList.indexOf(item)}>
@@ -136,7 +176,9 @@ export default function Home({ display }: {
                     </h5>)}
 
             </li>
-            <li><h1>View By Brand</h1>
+            <li className="category-item">
+                
+                <h1>View By Brand</h1>
                 {brands.map((item: string) =>
                     <h5 key={brands.indexOf(item)}>
                         <Link href={`/brands/${item}`}>{item}</Link>
