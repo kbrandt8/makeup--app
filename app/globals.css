@@ -279,6 +279,7 @@ main {
   background-color: #F3ECEF;
   color: #562A39;
 }
+
 .category-item:nth-child(even)>h1>a:hover {
   letter-spacing: normal;
   color: #562A39 !important;
@@ -377,6 +378,18 @@ main {
 .small-display {
   visibility: hidden !important;
 
+}
+
+.loading {
+  margin: 5rem;
+}
+
+.loading>h1 {
+  font-size: 3.5rem;
+}
+
+.not-found>h1 {
+  font-size: 3.5rem;
 }
 
 @media (max-width:750px) {

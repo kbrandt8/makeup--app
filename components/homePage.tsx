@@ -6,8 +6,7 @@ import Link from "next/link"
 import Image from "next/image";
 import { brands, products, tagList } from "@/utils/lists"
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
-import { useState, useCallback, useEffect } from 'react';
-
+import { useState, useCallback, useEffect, Suspense } from 'react';
 
 export default function Home({ display }: {
     display: {
@@ -52,112 +51,6 @@ export default function Home({ display }: {
 
 
         <ul>
-
-            <li className="display">
-                <h1>
-                    <Link
-                        href={`/products/${display.displayProduct[0].product_type}`}
-                    >
-                        View {displayProductName}
-                        {displayProductName === "eyebrow" && " Products"}
-                    </Link>
-                </h1>
-
-                {width > 500 && <Carousel
-                    responsive={responsive}
-                    infinite={true}
-                    swipeable={true}
-                    draggable={true}
-                    showDots={false}
-                    removeArrowOnDeviceType={["tablet", "mobile"]}
-                    autoPlay={true}
-                    autoPlaySpeed={3000}
-                    customRightArrow={<FaArrowRight />}
-                    customLeftArrow={<FaArrowLeft />}
-                    className="Carousel"
-
-                >
-                    {display.displayProduct.map((item: ProductType) =>
-                        <Link key={item.id} className="display-item" href={`/productPage/${item.id}`}>
-                            <Image
-                                src={'https:' + item.api_featured_image}
-                                alt={item.name}
-                                width={100}
-                                height={100}
-                            />
-
-                        </Link>
-                    )}
-                </Carousel>}
-                {width <= 500 &&
-                    <div className="small-display">
-                        {display.displayProduct.slice(0, 3).map((item: ProductType) =>
-                            <Link key={item.id} className="display-item small-display-item" href={`/productPage/${item.id}`}>
-                                <Image
-                                    src={'https:' + item.api_featured_image}
-                                    alt={item.name}
-                                    width={100}
-                                    height={100}
-                                />
-
-                            </Link>
-                        )}
-                    </div>}
-            </li>
-            <li className="display">
-                <h1>
-                    <Link
-                        href={`/brands/${display.displayBrand[0].brand}`}
-                    > View {displayBrandName} Products
-                    </Link>
-                </h1>
-                {width > 500 && <Carousel
-                    responsive={responsive}
-                    infinite={true}
-                    swipeable={true}
-                    draggable={true}
-                    showDots={false}
-                    removeArrowOnDeviceType={["tablet", "mobile"]}
-                    autoPlay={true}
-                    autoPlaySpeed={3000}
-                    customRightArrow={<FaArrowRight />}
-                    customLeftArrow={<FaArrowLeft />}
-                    className="Carousel"
-
-                >
-                    {display.displayBrand.map((item: ProductType) =>
-
-                        <Link key={item.id} className="display-item" href={`/productPage/${item.id}`}>
-                            <Image
-                                src={'https:' + item.api_featured_image}
-                                alt={item.name}
-                                width={100}
-                                height={100}
-                            />
-
-                        </Link>
-                    )}
-                </Carousel>}
-
-                {width <= 500 &&
-                    <div className="small-display">
-
-                        {display.displayBrand.slice(0, 3).map((item: ProductType) =>
-
-                            <Link key={item.id} className="display-item small-display-item" href={`/productPage/${item.id}`}>
-                                <Image
-                                    src={'https:' + item.api_featured_image}
-                                    alt={item.name}
-                                    width={100}
-                                    height={100}
-                                />
-
-                            </Link>
-                        )}
-                    </div>}
-
-            </li>
-
 
             <li className="category-item">
                 <h1>View By Product</h1>
