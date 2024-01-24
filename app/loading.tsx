@@ -11,12 +11,7 @@ export default function Loading() {
           <span className="visually-hidden">Loading...</span>
         </Spinner>
       </h1>
-      {/* <ul
-        className="products"
-      >
-      <Card style={{ width: '8rem', height: '10rem' }} className="product-card">
-      </Card>
-      </ul> */}
+
 
     </main>
   )

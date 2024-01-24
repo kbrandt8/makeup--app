@@ -23,9 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <CartProvider>
         <NavBar/>
-          <Suspense fallback={<Loading/>}>
           {children}
-          </Suspense>
           <CookieConsentBanner/>
         </CartProvider>
         
