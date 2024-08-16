@@ -9,7 +9,7 @@ const options = {
   headers: {
     'X-RapidAPI-Key': API,
     'X-RapidAPI-Host': 'makeup.p.rapidapi.com',
-    cache:'no-store'
+    cache: 'no-store'
   },
 };
 
@@ -21,7 +21,7 @@ export async function getData(product, brand, tags) {
   const addProducts = brand || product ? "" : "/products"
   const tagList = tags ? `?tags=${tags.tags}` : ""
   const url = `${URL}api${addProducts}${brandName}${productType}${tagList}`;
-  const data= await fetch(url, options).then(response => response.json())
+  const data = await fetch(url, options).then(response => response.json())
   return data.products
 }
 
@@ -30,37 +30,11 @@ export async function getData(product, brand, tags) {
 //Individual Products
 export async function getProductPage(id) {
   const url = `${URL}api/products/productPage/${id}`
-  const {product} = await fetch(
+  const { product } = await fetch(
     url,
     options).then(response => response.json())
 
   return product
-}
-
-//For the HomePage
-
-export async function getRandomProduct() {
-
-  let num = Math.floor(Math.random() * products.length)
-  const product = products[num].toString()
-  
-  return product
-  
-}
-
-export async function getRandomBrand() {
-
-    let num = Math.floor(Math.random() * brands.length)
-    const brand = brands[num].toString()
-  return brand
-
-}
-
-export async function getRandomTag(){
-  
-  let num = Math.floor(Math.random()* tagList.length)
-  const tag = tagList[num].toString()
-  return tag
 }
 
 
