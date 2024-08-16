@@ -8,16 +8,11 @@ import { brands, products, tagList } from "@/utils/lists"
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { useState, useCallback, useEffect, Suspense } from 'react';
 
-export default function Home({ display }: {
-    display: {
-        displayBrand: [ProductType],
-        displayProduct: [ProductType]
-    }
-}) {
+export default function Home(
+) {
     const [width, setWidth] = useState(0)
     const responsive = {
         superLargeDesktop: {
-            // the naming can be any, depends on you.
             breakpoint: { max: 4000, min: 3000 },
             items: 6
         },
@@ -37,7 +32,7 @@ export default function Home({ display }: {
     const newWidth = () => {
         setWidth(window.innerWidth)
     }
-   // eslint-disable-next-line
+    // eslint-disable-next-line
     useEffect(() => {
         if (window) {
             setWidth(window.innerWidth)
@@ -45,8 +40,6 @@ export default function Home({ display }: {
         }
     })
 
-    const displayProductName = display.displayProduct[0].product_type.replace("_", " ")
-    const displayBrandName = display.displayBrand[0].brand
     return (<div className="home">
 
 
@@ -62,7 +55,7 @@ export default function Home({ display }: {
 
             </li>
             <li className="category-item">
-                
+
                 <h1>View By Tag</h1>
 
                 {tagList.map((item: string) =>
@@ -72,7 +65,7 @@ export default function Home({ display }: {
 
             </li>
             <li className="category-item">
-                
+
                 <h1>View By Brand</h1>
                 {brands.map((item: string) =>
                     <h5 key={brands.indexOf(item)}>
