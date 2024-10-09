@@ -26,7 +26,7 @@ const CookieConsentBanner = () => {
 
   const handleReject = () => {
     setShowBanner(false);
-    cookie.set("cookieConsent", "rejected", { expires: 365 });
+    cookie.set("cookieConsent", "rejected", { expires: 0.01 });
   };
   return (
 
@@ -38,18 +38,18 @@ const CookieConsentBanner = () => {
           <Offcanvas.Title>This website uses cookies to improve your browsing experience.</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body >
-        <ButtonToolbar aria-label="This website uses cookies to improve your browsing experience.">
-        <ButtonGroup className="me-2" aria-label="Accept Browser Cookies">
-          <Button variant="primary" size="lg" onClick={handleAccept}>
-            Accept
-          </Button></ButtonGroup>
-        <ButtonGroup className="me-2" aria-label="Reject Browser Cookies">
+          <ButtonToolbar aria-label="This website uses cookies to improve your browsing experience.">
+            <ButtonGroup className="me-2" aria-label="Accept Browser Cookies">
+              <Button variant="primary" size="lg" onClick={handleAccept}>
+                Accept
+              </Button></ButtonGroup>
+            <ButtonGroup className="me-2" aria-label="Reject Browser Cookies">
 
-          <Button variant="secondary" size="lg" onClick={handleReject}>
-            Reject
-            </Button></ButtonGroup>
+              <Button variant="secondary" size="lg" onClick={handleReject}>
+                Reject
+              </Button></ButtonGroup>
 
-</ButtonToolbar>
+          </ButtonToolbar>
 
         </Offcanvas.Body>
       </Offcanvas>

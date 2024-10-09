@@ -2,31 +2,34 @@
 import useSWR from 'swr'
 import { createContext, useContext, useState, useEffect } from 'react';
 import cookie from "js-cookie";
-import { changeQuantity, startCart } from '@/utils/cartActions';
 const URL = process.env.NEXT_PUBLIC_URL
 const CartContext = createContext();
 export function CartProvider({ children }) {
     const [items, setItems] = useState([])
     const [total, setTotal] = useState(0)
+    const [startCart, setStartCart] = useState(true)
     const loggedIn = cookie.get('cookieConsent') === 'accepted' ? true : false
     const cartId = cookie.get('cartId')
-    const fetcher = (url) => fetch(url).then((res) => res.json());
-    const getCart = `${URL}api/cartCookies/${cartId}`
-    const { data, error, isLoading } = useSWR(getCart, fetcher)
     const cartNumber = getTotalItems(items)
-    useEffect(() => {
-        if (data) {
-            if (data.items) {
-                setItems(data.items)
-                setTotal(getTotal(data.items))
-            }
-        }
-    }, [data])
+
     useEffect(() => {
         const total = getTotal(items)
         setTotal(total)
     }, [total, items])
 
+    useEffect(() => {
+        if (startCart) {
+            const allItems = JSON.parse(sessionStorage.getItem("items"))
+            if (allItems !== null) {
+                setItems(allItems)
+            }
+            setStartCart(false)
+        }
+    }, [startCart])
+
+    function updateSession(items) {
+        sessionStorage.setItem("items", JSON.stringify(items))
+    }
 
     function getTotal(items) {
         const itemTotal = items.map(item => parseFloat(item.price) * item.quantity)
@@ -35,43 +38,49 @@ export function CartProvider({ children }) {
         }, 0)
         return total
     }
-    function getTotalItems(items){
-        const allItems = items.map(item=> item.quantity)
-        const total = allItems.reduce((a,c)=>{
-            return a+c
-        },0)
+    function getTotalItems(items) {
+        const allItems = items.map(item => item.quantity)
+        const total = allItems.reduce((a, c) => {
+            return a + c
+        }, 0)
         return total
     }
 
     function deleteItem(item) {
         const newItems = items.filter(product => product !== item)
         setItems(newItems)
+        updateSession(newItems)
     }
 
     function newQuantity(item, increment) {
         let { quantity } = item
-            if (increment) {
-                quantity += 1
-            } else {
-                quantity -= 1
-                if (quantity <= 0) {
-                    deleteItem(item)
-                    const total = getTotal(items)
-                    setTotal(total)
-                }
+        if (increment) {
+            quantity += 1
+        } else {
+            quantity -= 1
+            if (quantity <= 0) {
+                deleteItem(item)
+                const total = getTotal(items)
+                setTotal(total)
             }
-
-            item.quantity = quantity
-            const total = getTotal(items)
-            setTotal(total)
+        }
+        item.quantity = quantity
+        const total = getTotal(items)
+        setTotal(total)
+        updateSession(items)
 
     }
+
     function addItem(item) {
-        if (!items.includes(item)) {
-            setItems([...items, item])
+        if (!items.some(cartItem => cartItem.id === item.id)) {
+            const newItems = [...items, item]
+            setItems(newItems)
+            updateSession(newItems)
+
         } else {
-            changeQuantity(item, true)
+            newQuantity(item, true)
         }
+
     }
 
     return (
