@@ -16,12 +16,13 @@ export async function startCart() {
 }
 
 export async function getCart(id) {
+  if (!id) return null;
   try {
     const data = await fetch(`${URL}/api/cartCookies/${id}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        cache:'no-store'
+        cache: 'no-store'
       }
 
 
@@ -91,7 +92,7 @@ export async function changeQuantity(id, item, increment) {
       console.log(error)
     }
   } else if (item.quantity <= 1 && !increment) {
-  
+
     removeFromCart(id, item)
   }
 }
