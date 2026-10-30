@@ -7,7 +7,7 @@ export async function GET(
     try {
          
         const color = params.hexcode;
-        const key = process.env.MAKEUP_API_KEY
+        const key = process.env.MAKEUP_API_KEY!
         const options = {
             method: 'GET',
             headers: {
